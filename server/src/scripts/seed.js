@@ -252,7 +252,7 @@ export const seedDatabase = async () => {
         name: 'Veg Biryani',
         slug: 'veg-biryani',
         description: 'Aromatic basmati rice cooked with fresh seasonal garden vegetables, paneer cubes, and hand-ground spices in traditional dum pukht style.',
-        photo: 'https://images.unsplash.com/photo-1642821373181-696a54913e9a?w=800&auto=format&fit=crop&q=80',
+        photo: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800&auto=format&fit=crop&q=80',
         category: catMap['dum-biryani'],
         basePrice: 280,
         priceByCity: { Hyderabad: 280, Bangalore: 310 },

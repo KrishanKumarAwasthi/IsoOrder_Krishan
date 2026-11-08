@@ -9,7 +9,7 @@ import { API_BASE } from '../../config/api';
 // Fallback initial outlets in case backend is loading
 const FALLBACK_OUTLETS = [
   {
-    _id: 'outlet_kondapur',
+    _id: '65f000000000000000000001',
     name: 'Kondapur Outlet',
     slug: 'kondapur',
     type: 'retail',
@@ -22,7 +22,7 @@ const FALLBACK_OUTLETS = [
     isDeliverable: true,
   },
   {
-    _id: 'outlet_gachibowli',
+    _id: '65f000000000000000000002',
     name: 'Gachibowli Cloud Kitchen',
     slug: 'gachibowli-cloud-kitchen',
     type: 'cloud_kitchen',
@@ -35,7 +35,7 @@ const FALLBACK_OUTLETS = [
     isDeliverable: true,
   },
   {
-    _id: 'outlet_kukatpally',
+    _id: '65f000000000000000000003',
     name: 'Kukatpally Outlet',
     slug: 'kukatpally',
     type: 'retail',
@@ -48,7 +48,7 @@ const FALLBACK_OUTLETS = [
     isDeliverable: true,
   },
   {
-    _id: 'outlet_jubilee_hills',
+    _id: '65f000000000000000000004',
     name: 'Jubilee Hills Outlet',
     slug: 'jubilee-hills',
     type: 'retail',
@@ -61,7 +61,7 @@ const FALLBACK_OUTLETS = [
     isDeliverable: true,
   },
   {
-    _id: 'outlet_madhapur',
+    _id: '65f000000000000000000005',
     name: 'Madhapur Outlet',
     slug: 'madhapur',
     type: 'retail',

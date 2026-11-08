@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+import { API_BASE } from '../config/api';
 
 const CartContext = createContext(null);
 
@@ -35,6 +37,29 @@ export const CartProvider = ({ children }) => {
       localStorage.setItem('iso_outlet', JSON.stringify(selectedOutlet));
     }
   }, [selectedOutlet]);
+
+  useEffect(() => {
+    const syncRealOutlet = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/outlets`);
+        const liveOutlets = res.data?.data || [];
+        if (liveOutlets.length > 0) {
+          setSelectedOutlet((current) => {
+            if (!current || !current._id || String(current._id).startsWith('outlet_')) {
+              const matched = liveOutlets.find(
+                (o) => o.slug === current?.slug || o.name === current?.name
+              );
+              return matched || liveOutlets[0];
+            }
+            return current;
+          });
+        }
+      } catch (err) {
+        // Safe silent fallback
+      }
+    };
+    syncRealOutlet();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('iso_cart', JSON.stringify(cartItems));

@@ -23,13 +23,13 @@ import { API_BASE } from '../../config/api';
 const FALLBACK_MENU = [
   {
     category: {
-      _id: 'cat_biryani',
+      _id: '65f000000000000000000101',
       name: 'Dum Biryani Specials',
       slug: 'dum-biryani',
     },
     items: [
       {
-        _id: 'item_ck_biryani',
+        _id: '65f000000000000000000011',
         name: 'Chicken Dum Biryani',
         slug: 'chicken-dum-biryani',
         description: 'Authentic Hyderabadi Dum Biryani cooked with succulent spiced chicken, aged long-grain basmati, pure desi ghee, and saffron.',
@@ -49,11 +49,11 @@ const FALLBACK_MENU = [
         ],
       },
       {
-        _id: 'item_veg_biryani',
+        _id: '65f000000000000000000012',
         name: 'Veg Dum Biryani',
         slug: 'veg-biryani',
         description: 'Layered basmati rice with freshly marinated cottage cheese, garden vegetables, and Nizam spices.',
-        photo: 'https://images.unsplash.com/photo-1642821373181-696a54913e9a?w=800&auto=format&fit=crop&q=80',
+        photo: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800&auto=format&fit=crop&q=80',
         basePrice: 280,
         isVeg: true,
         spiceLevel: 2,
@@ -72,13 +72,13 @@ const FALLBACK_MENU = [
   },
   {
     category: {
-      _id: 'cat_starters',
+      _id: '65f000000000000000000102',
       name: 'Starters & Curries',
       slug: 'starters',
     },
     items: [
       {
-        _id: 'item_haleem',
+        _id: '65f000000000000000000013',
         name: 'Mutton Haleem',
         slug: 'mutton-haleem',
         description: 'GI-tagged slow-cooked boneless tender mutton with cracked wheat, ghee, lentils, and royal spices.',
@@ -98,7 +98,7 @@ const FALLBACK_MENU = [
         ],
       },
       {
-        _id: 'item_chicken_65',
+        _id: '65f000000000000000000014',
         name: 'Chicken 65',
         slug: 'chicken-65',
         description: 'Bite-sized crispy spiced chicken tossed with fresh curry leaves, garlic, and fiery green chillies.',
@@ -113,13 +113,13 @@ const FALLBACK_MENU = [
   },
   {
     category: {
-      _id: 'cat_desserts',
+      _id: '65f000000000000000000103',
       name: 'Desserts & Sweets',
       slug: 'desserts',
     },
     items: [
       {
-        _id: 'item_meetha',
+        _id: '65f000000000000000000015',
         name: 'Double Ka Meetha',
         slug: 'double-ka-meetha',
         description: 'Golden fried bread pudding soaked in thick cardamom rabri, saffron, and sliced almonds.',
@@ -331,6 +331,10 @@ export default function MenuPage() {
                       src={sugg.photo}
                       alt={sugg.name}
                       className="w-12 h-12 rounded-xl object-cover shrink-0"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&auto=format&fit=crop&q=80';
+                      }}
                     />
                     <div>
                       <h4 className="font-bold text-xs text-stone-900">{sugg.name}</h4>
@@ -387,6 +391,10 @@ export default function MenuPage() {
                         alt={item.name}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&auto=format&fit=crop&q=80';
+                        }}
                       />
                       {/* Veg / Non-Veg badge */}
                       <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-sm p-1 rounded-md shadow-sm">
