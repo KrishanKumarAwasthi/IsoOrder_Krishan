@@ -1,0 +1,22 @@
+{
+  "name": "iso-order",
+  "version": "1.0.0",
+  "description": "IsoOrder - Restaurant Chain Direct Ordering Platform with Kitchen Display System",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "build:client": "npm --prefix client run build",
+    "test": "npm --prefix server test",
+    "test:client": "npm --prefix client test",
+    "test:all": "npm --prefix server test && npm --prefix client test",
+    "seed": "npm --prefix server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+
