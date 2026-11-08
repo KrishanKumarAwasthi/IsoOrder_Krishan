@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
     return saved
       ? JSON.parse(saved)
       : {
-          _id: 'outlet_kondapur_default',
+          _id: '65f000000000000000000001',
           name: 'Kondapur Outlet',
           slug: 'kondapur',
           city: 'Hyderabad',
@@ -45,17 +45,24 @@ export const CartProvider = ({ children }) => {
         const liveOutlets = res.data?.data || [];
         if (liveOutlets.length > 0) {
           setSelectedOutlet((current) => {
-            if (!current || !current._id || String(current._id).startsWith('outlet_')) {
+            const isStaleId =
+              !current ||
+              !current._id ||
+              String(current._id).startsWith('outlet_') ||
+              !/^[0-9a-fA-F]{24}$/.test(String(current._id));
+            if (isStaleId) {
               const matched = liveOutlets.find(
                 (o) => o.slug === current?.slug || o.name === current?.name
               );
               return matched || liveOutlets[0];
             }
-            return current;
+            // Even for valid IDs, verify the outlet still exists in the live list
+            const stillValid = liveOutlets.find((o) => o._id === String(current._id));
+            return stillValid || liveOutlets[0];
           });
         }
       } catch (err) {
-        // Safe silent fallback
+        // Safe silent fallback — keep existing outlet
       }
     };
     syncRealOutlet();

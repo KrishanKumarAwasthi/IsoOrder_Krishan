@@ -1,7 +1,33 @@
+import mongoose from 'mongoose';
 import { MenuItem } from '../models/MenuItem.model.js';
 import { Category } from '../models/Category.model.js';
 import { Outlet } from '../models/Outlet.model.js';
 import { TIME_SLOTS } from '../shared/constants.js';
+
+// Flexible outlet resolver — supports ObjectId, slug strings, name substrings, or fallback to first outlet
+async function resolveOutlet(outletId) {
+  let outlet = null;
+  if (mongoose.Types.ObjectId.isValid(outletId)) {
+    outlet = await Outlet.findById(outletId);
+  }
+  if (!outlet) {
+    const slugCandidate = String(outletId || '')
+      .replace(/^outlet_/, '')
+      .replace(/_default$/, '')
+      .replace(/_/g, '-');
+    outlet = await Outlet.findOne({
+      $or: [
+        { slug: slugCandidate },
+        { slug: new RegExp(slugCandidate, 'i') },
+        { name: new RegExp(slugCandidate.replace(/-/g, ' '), 'i') },
+      ],
+    });
+  }
+  if (!outlet) {
+    outlet = await Outlet.findOne({ isActive: true });
+  }
+  return outlet;
+}
 
 // Determine current time slot based on hour of day
 function getCurrentTimeSlot() {
@@ -17,7 +43,7 @@ export const getMenuByOutlet = async (req, res, next) => {
     const { outletId } = req.params;
     const { timeSlot, filterVeg } = req.query;
 
-    const outlet = await Outlet.findById(outletId);
+    const outlet = await resolveOutlet(outletId);
     if (!outlet) {
       return res.status(404).json({ error: 'Outlet not found' });
     }

@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { Outlet } from '../models/Outlet.model.js';
 
 // Haversine distance calculator in kilometers
@@ -68,7 +69,24 @@ export const getNearbyOutlets = async (req, res, next) => {
 
 export const getOutletById = async (req, res, next) => {
   try {
-    const outlet = await Outlet.findById(req.params.id);
+    const { id } = req.params;
+    let outlet = null;
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      outlet = await Outlet.findById(id);
+    }
+    if (!outlet) {
+      const slugCandidate = String(id)
+        .replace(/^outlet_/, '')
+        .replace(/_default$/, '')
+        .replace(/_/g, '-');
+      outlet = await Outlet.findOne({
+        $or: [
+          { slug: slugCandidate },
+          { slug: new RegExp(slugCandidate, 'i') },
+          { name: new RegExp(slugCandidate.replace(/-/g, ' '), 'i') },
+        ],
+      });
+    }
     if (!outlet) {
       return res.status(404).json({ error: 'Outlet not found' });
     }
